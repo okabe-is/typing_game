@@ -57,6 +57,11 @@ class App extends Component {
                 {/*after game-over, display score*/}
                 {this.state.isGameOver &&
                 <h2 style={{color: "red"}}>Your Score: {this.state.score}</h2>}
+                <div className="reposCard">
+                    <a href="https://github.com/okabe-is/typing_game"><img
+                        src="https://gh-card.dev/repos/okabe-is/typing_game.svg"/>
+                    </a>
+                </div>
             </div>
         );
 
