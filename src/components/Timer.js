@@ -8,7 +8,14 @@ class Timer extends Component {
             countdown: props.time_s * 1000, //このmsまでカウントダウンする
             time_ms: 0, // START後の経過時間 単位は ms
             startAt: 0, // STOPしても経過時間を正しく計測するために使用
-            isOn: false, // カウントダウン中ならTrueとなるフラグ
+            isOn: props.isOn, // カウントダウン中ならTrueとなるフラグ
+        }
+    }
+
+    componentDidMount() {
+        console.log("componentdidMount " + this.props.time_s + " s");
+        if(this.props.isOn){
+            this.startTimer();
         }
     }
 
