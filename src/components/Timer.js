@@ -5,24 +5,20 @@ class Timer extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            countdown: props.time_s * 1000, //このmsまでカウントダウンする
-            time_ms: 0, // START後の経過時間 単位は ms
-            startAt: 0, // STOPしても経過時間を正しく計測するために使用
-            isOn: props.isOn, // カウントダウン中ならTrueとなるフラグ
+            countdown: props.time_s * 1000, //target time(ms)
+            elapsed_time: 0,
+            isOn: props.isOn,
         }
     }
 
     componentDidMount() {
-        console.log("componentdidMount " + this.props.time_s + " s");
         if(this.props.isOn){
             this.startTimer();
         }
     }
 
     startTimer = () => {
-        console.log("start");
         this.setState({
-            //経過時間を蓄積するための処理
             startAt: Date.now(),
             isOn: true,
 
@@ -33,15 +29,14 @@ class Timer extends Component {
         this.timer = setInterval(
             () => {
 
-                //経過時間
-                let spent_time = Date.now() - this.state.startAt;
+                const elapsed_time = Date.now() - this.state.startAt;
 
                 this.setState({
-                    time_ms: spent_time < this.state.countdown ? spent_time : this.state.countdown,
+                    elapsed_time: elapsed_time < this.state.countdown ? elapsed_time : this.state.countdown,
                 });
 
-                // 経過時間が目標値となったらカウントダウンを止める
-                if (this.state.time_ms >= this.state.countdown) {
+                // stop timer and escalate event to parent component
+                if (this.state.elapsed_time >= this.state.countdown) {
                     clearInterval(this.timer);
                     this.props.finish();
                 }
@@ -50,7 +45,7 @@ class Timer extends Component {
 
     render() {
 
-        let rest_of_time = this.state.countdown - this.state.time_ms;
+        const rest_of_time = this.state.countdown - this.state.elapsed_time;
 
         return (
             <div>
