@@ -41,14 +41,14 @@ class App extends Component {
                 {/*at first, display START Button.*/}
                 {this.state.isStarted ||
                 <Timer time_s={3}
-                       isOn={false}
+                       autoStart={false}
                        finish={this.endCountdownHandler}/>}
 
                 {/*after countdown, start game.*/}
                 {this.state.isStarted &&
                 <div>
                     <Timer time_s={10}
-                           isOn={true}
+                           autoStart={true}
                            finish={this.endGameHandler}/>
                     <SimpleTypingGame scoreChange={this.scoreChangeHandler}/>
                 </div>

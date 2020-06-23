@@ -7,12 +7,12 @@ class Timer extends Component {
         this.state = {
             countdown: props.time_s * 1000, //target time(ms)
             elapsed_time: 0,
-            isOn: props.isOn,
+            isOn: false,
         }
     }
 
     componentDidMount() {
-        if(this.props.isOn){
+        if(this.props.autoStart){
             this.startTimer();
         }
     }

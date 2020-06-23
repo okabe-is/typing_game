@@ -23,7 +23,7 @@ class SimpleTypingGame extends Component {
     inputHandler = (event) => {
 
         // check correctness
-        const isCorrect = this.state.quiz === event.target.value;
+        const isCorrect = this.state.quiz === event.target.value.toLowerCase();
 
         const num = isCorrect ? this.state.correct_num + 1 : this.state.correct_num
         // escalate score
@@ -47,13 +47,14 @@ class SimpleTypingGame extends Component {
     }
 
     componentDidMount() {
-        this.inputField.current.focus();
+        this.inputField.current.focus()
     }
 
     render() {
 
         // generate quiz character components
         const quiz_chars = this.state.quiz.split('').map((char, index) => {
+
             return <CharDumb char={char}
                              key={index}
                              inputChar={this.state.inputText.split('')[index]}/>
@@ -64,7 +65,9 @@ class SimpleTypingGame extends Component {
                 <input type="text"
                        ref={this.inputField}
                        onChange={this.inputHandler}
-                       value={this.state.inputText}/>
+                       value={this.state.inputText}
+                       style={{fontSize: "16px"}}
+                />
                 <div className="targetText">
                     {quiz_chars}
                 </div>

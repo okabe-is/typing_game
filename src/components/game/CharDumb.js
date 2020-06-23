@@ -14,7 +14,7 @@ const CharDumb = (props) => {
     };
 
     // set color depends on correctness
-    if (props.char === props.inputChar) {
+    if (props.char === String(props.inputChar).toLowerCase()) {
         style.backgroundColor = 'lightgreen';
         style.color = 'green';
         style.fontWeight = 'bold';
