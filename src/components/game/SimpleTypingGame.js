@@ -3,12 +3,15 @@ import CharDumb from "./CharDumb";
 import NumberUtil from "../../NumberUtil"; //#TODO Is relative path right way..?
 
 import "./SimpleTypingGame.css"
+import gameContext from "../../context/gameContext";
 
 const quiz_list = ["apple", "avocado", "banana", "coconut", "durian", "plums",
     "guava", "lemon", "lychee", "orange", "papaya", "pineapple", "prunes"
 ];
 
 class SimpleTypingGame extends Component {
+
+    static contextType = gameContext;
 
     constructor(props) {
         super(props);
@@ -20,14 +23,16 @@ class SimpleTypingGame extends Component {
         this.inputField = React.createRef();
     }
 
-    inputHandler = (event) => {
 
+    inputHandler = (event) => {
+        console.log("called inputHandler");
         // check correctness
         const isCorrect = this.state.quiz === event.target.value.toLowerCase();
 
         const num = isCorrect ? this.state.correct_num + 1 : this.state.correct_num
         // escalate score
-        this.props.scoreChange(num);
+        this.context.current_game_score = num;
+
 
         this.setState({
             inputText: event.target.value,
@@ -47,6 +52,7 @@ class SimpleTypingGame extends Component {
     }
 
     componentDidMount() {
+        this.context.current_game_score = this.state.correct_num;
         this.inputField.current.focus()
     }
 
